@@ -1,0 +1,131 @@
+\documentclass[a4paper]{article}
+\usepackage{mathtools}
+\usepackage{amsthm}
+\usepackage{geometry}
+\usepackage{amsfonts}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T2A]{fontenc}
+\usepackage[english,russian]{babel}
+
+\geometry{top = 2cm}
+\geometry{bottom = 2cm}
+\geometry{left = 2cm}
+\geometry{right = 2cm}
+
+\title{\textbf{Линейная алгебра и геометрия}}
+\author{Лектор --- проф. М. В. Зайцев}
+\date{}
+
+\theoremstyle{definition}
+\newtheorem{theorem}{Теорема}
+\newtheorem{corollary}{Следствие}
+\newtheorem{lemma}{Лемма}
+\newtheorem{fact}{Предложение}
+\newtheorem{definition}{Определение}
+\newtheorem{problem}{Задача}
+
+\begin{document}
+	\maketitle
+	\section{Введение}
+	\subsection{Определения}
+	\begin{definition}
+	Пусть дано поле $F$. Множество $V$ называется \textit{векторным (линейным) пространством над полем} $F$, если выполнены следующие свойства:
+	\begin{enumerate}
+	\item $V$ --- абелева группа по сложению.
+	\item Определено умножение скаляра из поля $F$ на элементы из $V$, результатом этого умножения является новый элемент $V$, причем:
+	\begin{itemize}
+	\item $\alpha(\beta v) = (\alpha \beta)v;$
+	\item $(\alpha + \beta) v = \alpha v + \beta v;$
+	\item $\alpha (u + v) = \alpha u + \alpha v;$
+	\end{itemize}
+	где $\alpha, \beta \in F; u, v \in V$ 
+	\item В поле есть единичный скаляр: $1 \cdot v = v$
+	\end{enumerate}
+	\end{definition}
+	\begin{definition}
+	\textit{Вектором} называется элемент векторного пространства. 
+	\end{definition}
+
+\subsection{Линейная зависимость}
+
+\begin{definition}
+	Векторы $v_1, \dots, v_n$ называются \textit{линейно-зависимыми}, если $\exists \lambda_1,\dots,\lambda_n \in F$ (не все равные нулю) такие, что $\lambda_1v_1  + \dots + \lambda_nv_n = 0$
+\end{definition}
+
+\begin{corollary}
+	$v_1,\dots,v_n$ \textit{линейно-независимы}, если $\lambda_1v_1 + \dots + \lambda_nv_n = 0 \Leftrightarrow \lambda_1 = \dots = \lambda_n = 0$.
+\end{corollary}
+
+\begin{definition}
+	Набор векторов $v_1, \dots, v_n$ будем называть \textit{базисом} $V$, если 
+	\begin{enumerate}
+		\item $\forall x \in V \ \exists \lambda_1, \dots, \lambda_n \in F$ такие, что $x = \lambda_1v_1 + \dots + \lambda_nv_n = x$;
+		\item $v_1, \dots, v_n$ линейно-независимы;
+	\end{enumerate}
+\end{definition}
+
+\begin{fact}
+	Пусть ${u_1, \dots, u_k} и {v_1, \dots, v_n}$ --- два базиса пространства $V$, тогда $k = n$. 
+	\\
+	 \textbf{Доказательство.} Разложим векторы первого базиса по второму базису: $u_i = \sum \limits_{j = 1}^n \alpha_{ij} v_j  \ \forall i \ 1 \leq i \leq n$. Если строки скаляров $\{\alpha_{11}, \dots, \alpha_{1n}\} $ линейно-зависимы, то зависимы и $\{u_1, \dots, u_k\}$ (так как можно взять их линейную комбинацию с теми же коэффициентами, что обнуляют строки вида $\{\alpha_{11}, \dots, \alpha_{1n}\}$) . Так как число линейно-независимых строчек не превосходит $n$, то $k \leq n$. Аналогично, $n \leq k \Rightarrow n = k$. \qedsymbol
+\end{fact}
+
+\begin{definition}
+	\textit{Размерностью пространства} $V$ будем называть число векторов в любом базисе $V$. Обозначается $\dim V$.
+\end{definition}
+
+\begin{fact}
+	Базис --- максимальная линейно-независимая система векторов (максимальная --- значит наибольшая по включению).
+	\\
+	\textbf{Доказательство.} Пусть есть вектор, который, будучи добавленным к базису, образует вместе с ним по-прежнему линейно-независимую систему. Тогда этот вектор не выражается через вектора базиса. Обратно, если дана максимальная линейно-независимая система, то она является базисом, так как любой другой вектор выражается через ее вектора (иначе можно было бы дополнить систему этим вектором). \qedsymbol
+\end{fact}
+\newpage
+\begin{fact}
+	$\dim V = \infty \Leftrightarrow \forall n \ \exists n$ линейно-независимых векторов.
+	\\
+	\textbf{Доказательство.} Будем дополнять систему векторов до базиса. Этот процесс будет продолжаться сколь угодно долго (т.к. иначе пространство имеет конечную размерность). А так как система будет всегда линейно-независима, то имеем сколь угодно большую систему линейно-независимых векторов. \qedsymbol
+\end{fact}
+
+\subsection{Матрицы перехода от базиса к базису}
+\begin{definition}
+	Пусть $\{e_1, \dots, e_n\}, \ \{e'_1, \dots, e'_n\}$ --- два базиса $V$. \\Тогда существуют скаляры $a_{ij} \ (1 \leq i, j \leq n)$ такие, что $e'_j = \sum \limits_{i = 1}^{n} a_{ij}e_i$. Тогда матрица $ A = \begin{pmatrix}
+		a_{11} & \dots & a_{1n} \\
+		\vdots & \ddots & \vdots \\
+		a_{n1} & \dots & a_{nn} \\
+  	\end{pmatrix}$ 
+  называется \textit{матрицей перехода} от базиса $\{e_1, \dots, e_n\}$ к базису $\{e'_1, \dots, e'_n\}$.
+\end{definition}
+
+Свойства матрицы $A$: 
+\begin{enumerate}
+	\item $i$-тый столбец матрицы $A$ --- столбец координат вектора $e'_i$ в старом (нештрихованном) базисе;
+	\item $\det A \neq 0$;
+\end{enumerate}
+
+\begin{problem}
+	Известны матрицы перехода $\{e_1, \dots, e_n\}\underrightarrow{A}\{e'_1, \dots, e'_n\}\underrightarrow{B}\{e''_1, \dots, e''_n\}$. Доказать, что матрица перехода от $\{e_i\}$ к $\{e''_i\}$ имеет вид $C = AB$.
+\end{problem}
+
+\subsection{Координаты в различных базисах}
+Пусть $\{e_1, \dots, e_n\}, \ \{e'_1, \dots, e'_n\}$ --- два базиса $V$, $w \in V, \ w = x_1e_1 + \dots + x_ne_n = x'_1e'_1 + \dots + x'_ne'_n$.
+\begin{theorem}
+	$
+	\begin{pmatrix}
+		x_1 \\
+		\vdots \\
+		x_n
+	\end{pmatrix}
+	= A
+	\begin{pmatrix}
+		x'_1 \\
+		\vdots \\
+		x'_n
+	\end{pmatrix}
+	$
+	, где $A$ --- матрица перехода от $\{e_1, \dots, e_n\}$ к $\{e'_1, \dots, e'_n\}$.
+	\\
+	\textbf{Доказательство.} $\sum \limits_i x_i e_i = w = \sum \limits_j x'_j e'_j = \sum \limits_j x'_j \sum \limits_i a_{ij} e_i = \sum \limits_i \sum \limits_j a_{ij} x'_j e_i \Rightarrow x_i = \sum \limits_j a_{ij} x'_j \Rightarrow X = AX'$. \qedsymbol
+\end{theorem}
+
+\end{document}
